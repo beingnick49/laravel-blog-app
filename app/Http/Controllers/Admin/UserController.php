@@ -13,7 +13,8 @@ class UserController extends Controller
         $users = User::latest()
             ->where('role', 'user')
             ->with('blogs')
-            ->paginate(100);
+            ->whereHas('blogs')
+            ->paginate(10);
 
         return view('backend.admin.users.index', compact('users'));
     }

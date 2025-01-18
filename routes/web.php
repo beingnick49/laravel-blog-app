@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\BlogController;
@@ -13,10 +14,14 @@ Route::get('/', function () {
 
 Route::get('/', function () {
 
-    $blogs = Blog::paginate(10);
+    $blogs = Blog::query()
+        ->whereHas('user', function ($query) {
+            $query->whereNot('status', 'banned');
+        })
+        ->paginate(10);
 
     return view('frontend.index', compact('blogs'));
-});
+})->name('frontend.index');
 
 
 Route::get('blog/detail/{blog}', function ($slug) {

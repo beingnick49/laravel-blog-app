@@ -28,17 +28,17 @@
         </div>
 
         <!-- Tags Section -->
-        @if ($blog->tags->count())
+        {{-- @if ($blog->tags->count())
             <div class="mb-4">
                 <h5 class="fw-bold">Tags:</h5>
                 @foreach ($blog->tags as $tag)
                     <a href="{{ route('tags.show', $tag->slug) }}" class="badge bg-secondary me-2">{{ $tag->name }}</a>
                 @endforeach
             </div>
-        @endif
+        @endif --}}
 
         <!-- Comments Section -->
-        <div class="mt-5">
+        {{-- <div class="mt-5">
             <h3 class="fw-bold">Comments</h3>
             <hr>
             @if ($blog->comments->count())
@@ -54,10 +54,10 @@
             @else
                 <p class="text-muted">No comments yet. Be the first to comment!</p>
             @endif
-        </div>
+        </div> --}}
 
         <!-- Add Comment Section -->
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <h4 class="fw-bold">Add a Comment</h4>
             <form action="{{ route('comments.store', $blog->id) }}" method="POST">
                 @csrf
@@ -66,11 +66,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Post Comment</button>
             </form>
-        </div>
+        </div> --}}
 
         <!-- Back to Blogs Button -->
         <div class="mt-5 text-center">
-            <a href="{{ route('blogs.index') }}" class="btn btn-outline-secondary">← Back to Blogs</a>
+            <a href="{{ route('frontend.index') }}" class="btn btn-outline-secondary">← Back to Blogs</a>
         </div>
     </div>
 @endsection

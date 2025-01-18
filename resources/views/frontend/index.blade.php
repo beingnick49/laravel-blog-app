@@ -59,7 +59,7 @@
 
                                         <!-- Read More Button -->
                                         <div class="mt-3">
-                                            <a href="{{ route('blogs.show', $blog->id) }}"
+                                            <a href="{{ route('blog.detail', $blog->slug) }}"
                                                 class="btn btn-outline-primary btn-sm">
                                                 Read More →
                                             </a>
