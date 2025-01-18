@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Blog;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Blog\StoreRequest;
@@ -12,7 +13,11 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::latest()->where('user_id', auth()->user()->id)->paginate(3);
+        $blogs = Blog::latest()
+            ->when(auth()->user()->role !== 'admin', function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            })
+            ->paginate(10);
 
         return view('backend.user.blog.index', compact('blogs'));
     }
@@ -35,6 +40,7 @@ class BlogController extends Controller
 
         Blog::create([
             'title' => $request->title,
+            'slug' => Str::slug($request->title),
             'content' => $request->content,
             'image' => $imageName,
             'status' => $request->status,
@@ -85,7 +91,9 @@ class BlogController extends Controller
         }
 
 
-        $blog->update($request->only('title', 'content', 'status'));
+        $slug = Str::slug($request->title);
+
+        $blog->update($request->only('title', 'content', 'status', $slug));
 
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
     }

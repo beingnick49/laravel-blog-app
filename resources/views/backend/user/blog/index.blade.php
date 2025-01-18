@@ -24,6 +24,7 @@
                                     <th>S.No.</th>
                                     <th>Image</th>
                                     <th>Title</th>
+                                    <th>Created by</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -42,6 +43,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $blog->title }}</td>
+                                        <td>{{ $blog->user->name }}</td>
                                         <td>
                                             <span
                                                 class="badge bg-{{ $blog->status ? 'primary' : 'warning' }}">{{ $blog->status ? 'Active' : 'In-Active' }}</span>
