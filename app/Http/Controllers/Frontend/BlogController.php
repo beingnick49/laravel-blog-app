@@ -10,7 +10,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::query()
-            ->latest()
+            ->latest('id')
             ->whereHas('user', function ($query) {
                 $query->whereNot('status', 'banned');
             })

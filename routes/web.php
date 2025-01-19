@@ -8,17 +8,21 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 
-// Admin routes
-Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('users', UserController::class);
-    Route::get('users/{user}', [UserController::class, 'status'])->name('users.status');
+
+// Backend routes
+Route::group(['middleware' => 'auth'], function () {
+
+    // User routes
+    Route::resource('blogs', BlogController::class);
+
+    // Admin routes
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('users', UserController::class);
+        Route::get('users/{user}', [UserController::class, 'status'])->name('users.status');
+    });
 });
 
-// User routes
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('blogs', BlogController::class);
-});
 
 // Authentication routes
 Auth::routes();

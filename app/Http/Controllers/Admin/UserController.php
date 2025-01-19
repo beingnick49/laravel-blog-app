@@ -33,6 +33,6 @@ class UserController extends Controller
             'status' => $user->status === 'banned' ? 'active' : 'banned'
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 }
