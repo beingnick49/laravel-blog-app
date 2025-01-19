@@ -11,12 +11,15 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()
-            ->where('role', 'user')
+            ->user()
+            ->when(request('status'), function ($query) {
+                if (request('status') == 'banned') $query->banned();
+                if (request('status') == 'active')  $query->active();
+            })
             ->with('blogs')
-            ->whereHas('blogs')
             ->paginate(10);
 
-        return view('backend.admin.users.index', compact('users'));
+        return view('backend.admin.users', compact('users'));
     }
 
     public function status(User $user)

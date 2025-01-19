@@ -48,6 +48,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function scopeUser($query)
+    {
+        return $query->where('role', 'user');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeBanned($query)
+    {
+        return $query->where('status', 'banned');
+    }
 
     public function blogs()
     {

@@ -1,40 +1,29 @@
 <?php
 
-use App\Models\Blog;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\BlogController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 
-Route::get('/', function () {
-    return view('welcome');
+// Admin routes
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('users', UserController::class);
+    Route::get('users/{user}', [UserController::class, 'status'])->name('users.status');
 });
 
-Route::get('/', function () {
+// User routes
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('blogs', BlogController::class);
+});
 
-    $blogs = Blog::query()
-        ->whereHas('user', function ($query) {
-            $query->whereNot('status', 'banned');
-        })
-        ->paginate(10);
-
-    return view('frontend.index', compact('blogs'));
-})->name('frontend.index');
-
-
-Route::get('blog/detail/{blog}', function ($slug) {
-    $blog = Blog::where('slug', $slug)->first();
-
-    return view('frontend.show', compact('blog'));
-})->name('blog.detail');
-
-
-Route::resource('users', UserController::class);
-Route::get('users/{user}', [UserController::class, 'status'])->name('users.status');
-Route::resource('blogs', BlogController::class);
-
+// Authentication routes
 Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Frontend routes
+Route::get('/', [FrontendBlogController::class, 'index'])->name('blog.index');
+Route::get('{blog:slug}', [FrontendBlogController::class, 'show'])->name('blog.show');

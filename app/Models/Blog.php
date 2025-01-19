@@ -22,6 +22,16 @@ class Blog extends Model
         'status',
     ];
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeInActive($query)
+    {
+        return $query->where('status', 0);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

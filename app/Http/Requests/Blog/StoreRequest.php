@@ -14,7 +14,10 @@ class StoreRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'min:3', 'max:150'],
+            'content' => ['required', 'string', 'min:10'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'status' => ['required', 'boolean'],
         ];
     }
 }

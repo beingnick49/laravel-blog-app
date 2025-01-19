@@ -22,8 +22,13 @@
                             <div class="row g-0">
                                 <!-- Blog Image -->
                                 <div class="col-md-4">
-                                    <img src="{{ 'https://placehold.co/600x400/EEE/31343C' }}"
-                                        class="img-fluid rounded-start h-100 object-cover" alt="{{ $blog->title }}">
+                                    @if (isset($blog->image))
+                                        <img src="{{ asset('storage/images/blogs/' . $blog->image) }}"
+                                            class="img-fluid rounded-start h-100 object-cover" alt="{{ $blog->title }}">
+                                    @else
+                                        <img src="{{ 'https://placehold.co/600x400/EEE/31343C' }}"
+                                            class="img-fluid rounded-start h-100 object-cover" alt="{{ $blog->title }}">
+                                    @endif
                                 </div>
 
                                 <!-- Blog Content -->
@@ -32,13 +37,13 @@
                                         <!-- Blog Category -->
                                         <div class="mb-2">
                                             <span class="badge bg-primary text-uppercase">
-                                                {{ $blog->category->name ?? 'Uncategorized' }}
+                                                {{ $blog->category->name ?? 'Blog' }}
                                             </span>
                                         </div>
 
                                         <!-- Blog Title -->
                                         <h5 class="card-title fw-bold">
-                                            <a href="{{ route('blog.detail', $blog->slug) }}"
+                                            <a href="{{ route('blog.show', $blog->slug) }}"
                                                 class="text-decoration-none text-dark">
                                                 {{ $blog->title }}
                                             </a>
@@ -59,7 +64,7 @@
 
                                         <!-- Read More Button -->
                                         <div class="mt-3">
-                                            <a href="{{ route('blog.detail', $blog->slug) }}"
+                                            <a href="{{ route('blog.show', $blog->slug) }}"
                                                 class="btn btn-outline-primary btn-sm">
                                                 Read More →
                                             </a>
