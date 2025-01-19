@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -23,12 +24,14 @@ class BlogController extends Controller
             })
             ->paginate(10);
 
-        return view('backend.user.blog.index', compact('blogs'));
+        return view('backend.blog.index', compact('blogs'));
     }
 
     public function create()
     {
-        return view('backend.user.blog.create');
+        $categories = Category::select('id', 'title')->get();
+
+        return view('backend.blog.create', compact('categories'));
     }
 
     public function store(StoreRequest $request)
@@ -43,6 +46,7 @@ class BlogController extends Controller
         }
 
         Blog::create([
+            'category_id' => $request->category_id,
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'content' => $request->content,
@@ -56,14 +60,15 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
-        return view('backend.user.blog.show', compact('blog'));
+        return view('backend.blog.show', compact('blog'));
     }
 
     public function edit(Blog $blog)
     {
         $this->authorize('edit', $blog);
+        $categories = Category::select('id', 'title')->get();
 
-        return view('backend.user.blog.edit', compact('blog'));
+        return view('backend.blog.edit', compact('blog', 'categories'));
     }
 
     public function update(UpdateRequest $request, Blog $blog)
@@ -94,7 +99,7 @@ class BlogController extends Controller
 
         $slug = Str::slug($request->title);
 
-        $blog->update($request->only('title', 'content', 'status') + ['slug' => $slug]);
+        $blog->update($request->only('category_id', 'title', 'content', 'status') + ['slug' => $slug]);
 
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
     }

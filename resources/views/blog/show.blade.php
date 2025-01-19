@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-5">
+    <div class="container-lg py-5" style="max-width: 960px;">
         <!-- Blog Header -->
         <div class="text-center mb-5">
             <h1 class="display-4 fw-bold">{{ $blog->title }}</h1>
             <p class="text-muted">
-                By <strong>{{ $blog->user->name }}</strong> on {{ $blog->created_at->format('M d, Y') }} |
-                <span class="badge bg-primary">{{ $blog->category->name ?? 'Blog' }}</span>
+                By <strong>{{ $blog->user?->name }}</strong> on {{ $blog->created_at->format('M d, Y') }} |
+                <span class="badge bg-primary">{{ $blog->category?->title ?? 'Blog' }}</span>
             </p>
         </div>
 
@@ -23,10 +23,12 @@
             </div>
         @endif
 
+        <!-- Blog Content -->
         <div class="mb-5">
             <p class="fs-5 text-muted">{!! nl2br(e($blog->content)) !!}</p>
         </div>
 
+        <!-- Back Button -->
         <div class="mt-5 text-center">
             <a href="{{ route('blog.index') }}" class="btn btn-outline-secondary">← Back to Blogs</a>
         </div>

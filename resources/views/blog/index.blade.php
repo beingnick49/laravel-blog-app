@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-5">
+    <div class="container-lg py-5" style="max-width: 960px;">
         <div class="text-center mb-5">
             <h1 class="display-4 fw-bold">Our Blog</h1>
             <p class="text-muted">Discover the latest stories, insights, and updates from our community.</p>
@@ -20,7 +20,6 @@
                     <div class="col-12">
                         <div class="card border-0 shadow-sm">
                             <div class="row g-0">
-                                <!-- Blog Image -->
                                 <div class="col-md-4">
                                     @if (isset($blog->image))
                                         <img src="{{ asset('storage/images/blogs/' . $blog->image) }}"
@@ -31,17 +30,14 @@
                                     @endif
                                 </div>
 
-                                <!-- Blog Content -->
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <!-- Blog Category -->
                                         <div class="mb-2">
                                             <span class="badge bg-primary text-uppercase">
-                                                {{ $blog->category->name ?? 'Blog' }}
+                                                {{ $blog->category?->title ?? 'Blog' }}
                                             </span>
                                         </div>
 
-                                        <!-- Blog Title -->
                                         <h5 class="card-title fw-bold">
                                             <a href="{{ route('blog.show', $blog->slug) }}"
                                                 class="text-decoration-none text-dark">
@@ -49,20 +45,17 @@
                                             </a>
                                         </h5>
 
-                                        <!-- Blog Snippet -->
                                         <p class="card-text text-muted mt-3">
                                             {{ Str::limit($blog->content, 150, '...') }}
                                         </p>
 
-                                        <!-- Meta Info -->
                                         <div class="mt-4">
                                             <small class="text-muted">
-                                                By <strong>{{ $blog->user->name }}</strong> on
+                                                By <strong>{{ $blog->user?->name }}</strong> on
                                                 {{ $blog->created_at->format('M d, Y') }}
                                             </small>
                                         </div>
 
-                                        <!-- Read More Button -->
                                         <div class="mt-3">
                                             <a href="{{ route('blog.show', $blog->slug) }}"
                                                 class="btn btn-outline-primary btn-sm">

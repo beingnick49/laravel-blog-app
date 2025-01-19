@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Blog;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,11 +24,12 @@ class BlogFactory extends Factory
         $title = $this->faker->sentence;
 
         return [
+            'category_id' => Category::inRandomOrder()->first()->id,
             'user_id' => User::where('role', 'user')->inRandomOrder()->first()->id,
             'title' => $title,
             'slug' => Str::slug($title),
             'content' => $this->faker->paragraphs(5, true),
-            'image' => $this->faker->imageUrl(800, 400, 'blogs', true, 'Faker Blog'),
+            'image' => null,
             'status' => $this->faker->randomElement([1, 0]),
         ];
     }
