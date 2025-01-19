@@ -4,6 +4,28 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                <!-- Search Form -->
+                <form action="{{ route('users.index') }}" method="GET" class="mb-3">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <input type="text" name="query" class="form-control" placeholder="Enter query..."
+                                value="{{ request('query') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <select name="status" class="form-select">
+                                <option value="">All Users</option>
+                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>Banned</option>
+                            </select>
+                        </div>
+                        <div class="col-12 text-end mt-2">
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm">Reset</a>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="card">
                     <div class="card-header">{{ __('Users') }}</div>
 

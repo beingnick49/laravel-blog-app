@@ -18,13 +18,21 @@ class BlogController extends Controller
             ->when(auth()->user()->role !== 'admin', function ($query) {
                 $query->where('user_id', auth()->user()->id);
             })
+            ->when(request('title'), function ($query) {
+                $query->where('title', 'LIKE', '%' . request('title') . '%');
+            })
+            ->when(request('category'), function ($query) {
+                $query->where('category_id', request('category'));
+            })
             ->when(request('status'), function ($query) {
                 if (request('status') == 'inactive') $query->where('status', 0);
                 if (request('status') == 'active')  $query->where('status', 1);
             })
             ->paginate(10);
 
-        return view('backend.blog.index', compact('blogs'));
+        $categories = Category::select('id', 'title')->get();
+
+        return view('backend.blog.index', compact('blogs', 'categories'));
     }
 
     public function create()

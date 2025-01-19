@@ -13,7 +13,9 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('blogs.index') }}" class="btn btn-sm btn-secondary">Back to Blogs</a>
+                        </div>
                         <div class="container">
 
                             <form action="{{ route('blogs.update', $blog->id) }}" method="POST"

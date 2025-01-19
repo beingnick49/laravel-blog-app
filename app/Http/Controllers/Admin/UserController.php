@@ -12,6 +12,11 @@ class UserController extends Controller
     {
         $users = User::latest()
             ->user()
+            ->when(request('query'), function ($query) {
+                $query->where('name', 'LIKE', '%' . request('query') . '%')
+                    ->orWhere('email', 'LIKE', '%' . request('query') . '%')
+                    ->orWhere('username', 'LIKE', '%' . request('query') . '%');
+            })
             ->when(request('status'), function ($query) {
                 if (request('status') == 'banned') $query->banned();
                 if (request('status') == 'active')  $query->active();

@@ -4,9 +4,43 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                <!-- Search Form -->
+                <form action="{{ route('blogs.index') }}" method="GET" class="mb-3">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <input type="text" name="title" class="form-control" placeholder="Search by Title"
+                                value="{{ request('title') }}">
+                        </div>
+                        <div class="col-md-4">
+                            <select name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ request('category') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="status" class="form-select">
+                                <option value="">All Status</option>
+                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active
+                                </option>
+                                <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>In-Active
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-12 text-end mt-2">
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                            <a href="{{ route('blogs.index') }}" class="btn btn-secondary btn-sm">Reset</a>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="card">
                     <div class="card-header">{{ __('Blogs') }}</div>
-
                     <div class="card-body">
                         @if (session('success'))
                             <div class="alert alert-success" role="alert">
@@ -14,7 +48,7 @@
                             </div>
                         @endif
 
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end mb-3">
                             <a href="{{ route('blogs.create') }}" class="btn btn-sm btn-primary">Add blog</a>
                         </div>
 
@@ -66,8 +100,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">
-                                            No blogs available !
+                                        <td colspan="7" class="text-center">
+                                            No blogs available!
                                         </td>
                                     </tr>
                                 @endforelse
