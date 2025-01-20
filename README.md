@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a simple blog site built using Laravel 11 and PHP 8.2. The site supports user registration, login, and CRUD operations for blog posts. It also includes a public blog display page accessible without authentication.
+This is a simple blog site which supports user registration, login, and CRUD operations for blog posts. It also includes a public blog display page accessible without authentication.
 
 ## Development environment
 
@@ -87,7 +87,7 @@ For testing purposes, you can use the following credentials:
 
 ## Laravel Features and Tools Used
 
--   **Authentication**: Laravel UI for authentication.
+-   **Authentication**: Laravel UI (package) for authentication.
 -   **Routing**: Organized routes in `web.php` for frontend and for backend.
 -   **Eloquent ORM**: Used for database interaction.
 -   **Middleware**: Protected routes to ensure only authenticated users can perform CRUD operations on their blog posts.
@@ -114,3 +114,5 @@ For testing purposes, you can use the following credentials:
 -   **Public Blog Display**:
     -   List page to view all posts.
     -   Detailed view for individual posts.
+
+Happy Coding 😊
