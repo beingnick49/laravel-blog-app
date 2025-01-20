@@ -20,6 +20,11 @@ class BlogPolicy
         return $user->id === $blog->user_id || auth()->user()->role === 'admin';
     }
 
+    public function show(User $user, Blog $blog)
+    {
+        return $this->isBlogOwnerOrAdmin($user, $blog);
+    }
+
     public function edit(User $user, Blog $blog)
     {
         return $this->isBlogOwnerOrAdmin($user, $blog);
