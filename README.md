@@ -54,7 +54,13 @@ npm run build
     php artisan db:seed
     ```
 
-### Step 5: Start the Development Server
+### Step 5: File storage linking
+
+```bash
+php artisan storage:link
+```
+
+### Step 6: Start the Development Server
 
 ```bash
 php artisan serve
