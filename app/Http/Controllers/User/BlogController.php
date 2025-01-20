@@ -68,6 +68,8 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
+        $this->authorize('edit', $blog);
+
         return view('backend.blog.show', compact('blog'));
     }
 

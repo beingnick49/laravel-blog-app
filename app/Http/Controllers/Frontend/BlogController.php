@@ -22,6 +22,8 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
+        if ($blog->status != 1) abort(404);
+
         return view('blog.show', compact('blog'));
     }
 }
