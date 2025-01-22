@@ -7,6 +7,16 @@
             <p class="text-muted">Discover the latest stories, insights, and updates from our community.</p>
         </div>
 
+        <!-- Search Bar -->
+        <form action="{{ route('frontend.blogs.index') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search blogs..."
+                    value="{{ request('search') }}" aria-label="Search blogs">
+                <button class="btn btn-primary" type="submit">Search</button>
+                <a href="{{ route('frontend.blogs.index') }}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+
         @if (session('status'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('status') }}
@@ -39,7 +49,7 @@
                                         </div>
 
                                         <h5 class="card-title fw-bold">
-                                            <a href="{{ route('blog.show', $blog->slug) }}"
+                                            <a href="{{ route('frontend.blogs.show', $blog->slug) }}"
                                                 class="text-decoration-none text-dark">
                                                 {{ $blog->title }}
                                             </a>
@@ -57,7 +67,7 @@
                                         </div>
 
                                         <div class="mt-3">
-                                            <a href="{{ route('blog.show', $blog->slug) }}"
+                                            <a href="{{ route('frontend.blogs.show', $blog->slug) }}"
                                                 class="btn btn-outline-primary btn-sm">
                                                 Read More →
                                             </a>

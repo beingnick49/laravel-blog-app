@@ -30,7 +30,7 @@
 
         <!-- Back Button -->
         <div class="mt-5 text-center">
-            <a href="{{ route('blog.index') }}" class="btn btn-outline-secondary">← Back to Blogs</a>
+            <a href="{{ route('frontend.blogs.index') }}" class="btn btn-outline-secondary">← Back to Blogs</a>
         </div>
     </div>
 @endsection
