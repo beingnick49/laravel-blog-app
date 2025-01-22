@@ -15,6 +15,10 @@
                         @endif
 
                         {{ __('Welcome !') }}
+
+                        @if (auth()->user()->status == 'banned')
+                            <span class="badge bg-danger">You are banned now.</span>
+                        @endif
                     </div>
                 </div>
             </div>

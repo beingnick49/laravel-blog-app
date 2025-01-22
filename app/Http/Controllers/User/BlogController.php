@@ -32,14 +32,14 @@ class BlogController extends Controller
 
         $categories = Category::select('id', 'title')->get();
 
-        return view('backend.blog.index', compact('blogs', 'categories'));
+        return view('backend.blogs.index', compact('blogs', 'categories'));
     }
 
     public function create()
     {
         $categories = Category::select('id', 'title')->get();
 
-        return view('backend.blog.create', compact('categories'));
+        return view('backend.blogs.create', compact('categories'));
     }
 
     public function store(StoreRequest $request)
@@ -70,7 +70,7 @@ class BlogController extends Controller
     {
         $this->authorize('edit', $blog);
 
-        return view('backend.blog.show', compact('blog'));
+        return view('backend.blogs.show', compact('blog'));
     }
 
     public function edit(Blog $blog)
@@ -78,7 +78,7 @@ class BlogController extends Controller
         $this->authorize('edit', $blog);
         $categories = Category::select('id', 'title')->get();
 
-        return view('backend.blog.edit', compact('blog', 'categories'));
+        return view('backend.blogs.edit', compact('blog', 'categories'));
     }
 
     public function update(UpdateRequest $request, Blog $blog)
